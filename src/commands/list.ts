@@ -1,7 +1,8 @@
 import {Command} from '@oclif/core'
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import {TodoRepository} from '../service/todoRepository.js'
 import { BaseCommand } from './baseCommand.js'
 
 const __filename = fileURLToPath(import.meta.url);
@@ -15,14 +16,11 @@ export default class List extends BaseCommand {
   ]
   static flags = {}
   dataPath = path.join(__dirname, '../data/todo.json');
+  private repo = new TodoRepository()
   
   async run(): Promise<void> {
     await this.parse(List);
-    await this.listTodo();
-  }
-  
-  async listTodo(): Promise<void> {
-    const data = JSON.parse(await fs.readFile(this.dataPath, 'utf-8'));
-    this.displayTodos(data);
+    const todoAll = await this.repo.getAll();
+    this.displayTodos(todoAll);
   }
 }
