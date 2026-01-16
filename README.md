@@ -21,7 +21,23 @@ $ todo-cli list             # listar tareas
 $ todo-cli update <id|idx>  # editar tarea con un id para el comando
 $ todo-cli remove <id|idx>  # eliminar tarea con un id para el comando
 ```
+## 📁 Estructura del proyecto (terminal)
 
+```
+src/
+├── commands/                  # Comandos CLI (add, update, list, remove)
+├── data/
+│   └── todo.json              # Almacenamiento de tareas
+├── models/
+│   └── todo.ts                # Esquema y tipos del modelo Todo
+├── service/
+│   └── todoRepository.ts      # Capa de datos (CRUD)
+├── types/
+│   └── enums.ts               # Enums de Status y Priority
+└── ui/
+    ├── Prompt.ts              # Entrada interactiva de usuario
+    └── TodoListFormatter.ts    # Formato y visualización de tareas
+```
 Comandos
 - `todo-cli add`
   - Crea una tarea nueva solicitando título, descripción, estado, prioridad y fecha.
