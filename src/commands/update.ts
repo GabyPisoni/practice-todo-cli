@@ -3,9 +3,9 @@ import { Args } from '@oclif/core';
 import { TodoRepository } from '../service/todoRepository.js';
 import { Todo } from '../models/todo.js';
 import { Status, Priority } from '../types/enums.js';
-import { BaseCommand } from './baseCommand.js';
+import { TodoListFormatter } from '../ui/TodoListFormatter.js';
 
-export default class Update extends BaseCommand {
+export default class Update extends TodoListFormatter {
   static args = {
     id: Args.string({ description: 'props para editar una tarea', required: false }),
   };
@@ -78,7 +78,7 @@ export default class Update extends BaseCommand {
     const addTodo = await this.repo.update(args.id,newTask);
     
     this.log('✅ Tarea agregada: ' + title);
-    this.displayTodos(addTodo);
+    this.todoListFormat(addTodo);
     
     this.rl.close();
   }

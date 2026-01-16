@@ -3,12 +3,12 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import {TodoRepository} from '../service/todoRepository.js'
-import { BaseCommand } from './baseCommand.js'
+import { TodoListFormatter } from '../ui/TodoListFormatter.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export default class List extends BaseCommand {
+export default class List extends TodoListFormatter {
   static args = {}
   static description = 'Get List Todo'
   static examples = [
@@ -21,6 +21,6 @@ export default class List extends BaseCommand {
   async run(): Promise<void> {
     await this.parse(List);
     const todoAll = await this.repo.getAll();
-    this.displayTodos(todoAll);
+    this.todoListFormat(todoAll);
   }
 }

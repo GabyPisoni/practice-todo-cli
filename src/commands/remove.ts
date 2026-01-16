@@ -1,9 +1,9 @@
 import { Args } from '@oclif/core';
 
 import { TodoRepository } from '../service/todoRepository.js';
-import { BaseCommand } from './baseCommand.js';
+import { TodoListFormatter } from '../ui/TodoListFormatter.js';
 
-export default class Remove extends BaseCommand {
+export default class Remove extends TodoListFormatter {
   static args = {
     id: Args.string({ description: 'ID o índice de la tarea a eliminar', required: true }),
   };
@@ -14,6 +14,6 @@ static description = 'Remove a Todo task';
     const { args } = await this.parse(Remove);
     const deleteTask = await this.repo.remove(args.id);
     this.log('✅ Tarea eliminada.');
-    this.displayTodos(deleteTask);
+    this.todoListFormat(deleteTask);
   }
 }
